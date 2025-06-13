@@ -53,13 +53,21 @@ function displayBooks() {
     const h1 = document.createElement("h1");
     const p1 = document.createElement("p");
     const p2 = document.createElement("p");
+    const p3 = document.createElement("p");
+    p3.setAttribute("class", "x-mark");
     div.setAttribute("class", "book-children");
     h1.textContent = book.title;
     p1.textContent = book.author;
     p2.textContent = book.page;
+    p3.textContent = "x";
+    p3.addEventListener("click", (e) => {
+      removeBook(book.uId);
+    });
     div.appendChild(h1);
     div.appendChild(p1);
     div.appendChild(p2);
+    div.appendChild(p3);
+
     divContainer.appendChild(div);
   }
 }
@@ -67,8 +75,10 @@ function removeBook(uId) {
   for (let i = 0; i < myLibrary.length; i++) {
     if (myLibrary[i].uId == uId) {
       myLibrary.splice(i, 1);
+      break;
     }
   }
+  displayBooks();
 }
 function toggleClass() {
   form.classList.toggle("show");
