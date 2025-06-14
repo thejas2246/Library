@@ -24,12 +24,11 @@ addButton.addEventListener("click", function (e) {
   titleValue = titleInput.value;
   authorValue = authorInput.value;
   pageValue = pageInput.value;
-  console.log(pageValue);
   createBook(titleValue, authorValue, pageValue);
   mainForm.reset();
 });
 
-function Book(title, author, page, uId) {
+function Book(title, author, page, uId, didRead) {
   if (!new.target) {
     throw new Error("Use new keyword to call the function!");
   }
@@ -37,6 +36,7 @@ function Book(title, author, page, uId) {
   this.author = author;
   this.page = page;
   this.uId = uId;
+  this.didRead = didRead;
 }
 
 function createBook(title, author, page) {
@@ -54,6 +54,15 @@ function displayBooks() {
     const p1 = document.createElement("p");
     const p2 = document.createElement("p");
     const p3 = document.createElement("p");
+    const checkBox = document.createElement("input");
+    const label = document.createElement("label");
+    const checkBoxContainer = document.createElement("div");
+    checkBoxContainer.appendChild(checkBox);
+    checkBoxContainer.appendChild(label);
+    label.textContent = "Not Read";
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.setAttribute("id", "check");
+    checkBoxContainer.setAttribute("class", "check-box-container");
     p3.setAttribute("class", "x-mark");
     div.setAttribute("class", "book-children");
     h1.textContent = book.title;
@@ -63,10 +72,14 @@ function displayBooks() {
     p3.addEventListener("click", (e) => {
       removeBook(book.uId);
     });
+    checkBox.addEventListener("click", function () {
+      changeLabelOfCheckbox(book, label, checkBox.checked);
+    });
     div.appendChild(h1);
     div.appendChild(p1);
     div.appendChild(p2);
     div.appendChild(p3);
+    div.appendChild(checkBoxContainer);
 
     divContainer.appendChild(div);
   }
@@ -82,4 +95,12 @@ function removeBook(uId) {
 }
 function toggleClass() {
   form.classList.toggle("show");
+}
+
+function changeLabelOfCheckbox(book, label, checked) {
+  if (checked) {
+    label.textContent = "Read";
+  } else {
+    label.textContent = "Not Read";
+  }
 }

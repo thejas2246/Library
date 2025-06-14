@@ -94,3 +94,13 @@ input{
     right: 10px;
     cursor: pointer;
 }
+.check-box-container{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.check-box-container>input{
+    margin: 0;
+    padding: 0;
+    width: 20px;
+}
