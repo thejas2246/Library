@@ -18,14 +18,16 @@ cancelButton.addEventListener("click", function () {
   mainForm.reset();
   toggleClass();
 });
-addButton.addEventListener("click", function (e) {
-  e.preventDefault();
-  toggleClass();
-  titleValue = titleInput.value;
-  authorValue = authorInput.value;
-  pageValue = pageInput.value;
-  createBook(titleValue, authorValue, pageValue);
-  mainForm.reset();
+mainForm.addEventListener("submit", function (e) {
+  if (mainForm.checkValidity()) {
+    e.preventDefault();
+    toggleClass();
+    titleValue = titleInput.value;
+    authorValue = authorInput.value;
+    pageValue = pageInput.value;
+    createBook(titleValue, authorValue, pageValue);
+    mainForm.reset();
+  }
 });
 
 function Book(title, author, page, uId, didRead) {
