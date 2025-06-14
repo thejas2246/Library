@@ -69,11 +69,14 @@ function displayBooks() {
     p1.textContent = book.author;
     p2.textContent = book.page;
     p3.textContent = "x";
+    label.textContent = book.didRead ? "Read" : "Not Read";
+    checkBox.checked = book.didRead;
     p3.addEventListener("click", (e) => {
       removeBook(book.uId);
     });
     checkBox.addEventListener("click", function () {
-      changeLabelOfCheckbox(book, label, checkBox.checked);
+      book.didRead = checkBox.checked;
+      changeLabelOfCheckbox(book, label);
     });
     div.appendChild(h1);
     div.appendChild(p1);
@@ -97,8 +100,8 @@ function toggleClass() {
   form.classList.toggle("show");
 }
 
-function changeLabelOfCheckbox(book, label, checked) {
-  if (checked) {
+function changeLabelOfCheckbox(book, label) {
+  if (book.didRead) {
     label.textContent = "Read";
   } else {
     label.textContent = "Not Read";
